@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: modular-monolith
+  datasource:
+    url: jdbc:postgresql://localhost:5432/modular_monolith_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  profiles:
+    active: development
+
+modulith:
+  default-application-module: user
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:tc:postgresql:14-alpine:///modular_monolith_db
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    username: test
+    password: test
+  flyway:
+    enabled: true

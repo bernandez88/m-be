@@ -1,0 +1,115 @@
+# Gradle build files
+.gradle/
+build/
+
+# Maven build directory
+target/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse files
+*.metadata
+*.classpath
+*.project
+*.settings/
+bin/
+
+# VS Code files
+.vscode/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+
+# Linux files
+*~
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Application files
+*.jar
+*.war
+*.ear
+
+# Generated files
+*.class
+
+# Spring Boot specific
+spring.log
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# Lombok generated files
+lombok.config
+
+# Node.js (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Coverage reports
+coverage/
+coverage-final.json
+.nyc_output/
+coverage-raw/
+
+# Test reports
+test-output/
+surefire-reports/
+failsafe-reports/
+
+# Git hooks
+.git/hooks/
+
+# Gradle Wrapper
+gradle/wrapper/gradle-wrapper.jar
+
+# IDEA project files
+*.ipr
+*.iws
+*.iml
+*.idb
+.idea/
+
+# Run configurations
+run/
+*.run.xml
+
+# Asset directories
+bin/
+gen/
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
