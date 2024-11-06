@@ -19,6 +19,10 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
+      - name: printing to test
+        run: |
+          echo "${{ secrets.AZURE_URL }}"
+
       - name: Docker Login
         uses: azure/docker-login@v1
         with:
