@@ -13,7 +13,8 @@ spec:
         app: mroh-rfs-backend
     spec:
       containers:
-      - name: ${{ images }}
+      - name: mroh-rfs-backend
+        image: ${images}
         ports:
         - containerPort: 8085
         envFrom:
