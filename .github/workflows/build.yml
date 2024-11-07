@@ -21,12 +21,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-      - name: 'Set image name'
-        run: echo "IMAGE_NAME=${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.ACR_REPOSITORY }}:${{ github.sha }}" >> $GITHUB_ENV
-      
+                
       - name: 'Print repository name'
-        run: echo "Imprimiendo IMAGE_NAME = ${{ secrets.IMAGE_NAME }}"
+        run: echo "Imprimiendo IMAGE_NAME = ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.ACR_REPOSITORY }}:${{ github.sha }}"
 
       - name: 'Build and push image'
         uses: azure/docker-login@v1
@@ -36,7 +33,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           docker build . -t 
-          docker push ${{ secrets.IMAGE_NAME }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.ACR_REPOSITORY }}:${{ github.sha }}
 
       - name: 'Set AKS context'
         id: set-context
@@ -56,5 +53,5 @@ jobs:
           namespace: 'default'
           manifests: |
              deployment.yml
-          images: '${{ secrets.IMAGE_NAME }}'
+          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.ACR_REPOSITORY }}:${{ github.sha }}'
           pull-images: true 
