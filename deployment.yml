@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mroh-rfs-backend
-        image: ${images}
+        image: mrohcontainerregistrybh.azurecr.io/mroh-rfs-backend:latest
         ports:
         - containerPort: 8085
         envFrom:
