@@ -36,7 +36,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           docker build . -t 
-          docker push ${{ IMAGE_NAME }}
+          docker push ${{ secrets.IMAGE_NAME }}
 
       - name: 'Set AKS context'
         id: set-context
