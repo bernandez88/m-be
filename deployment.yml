@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mroh-rfs-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mroh-rfs-backend
+  template:
+    metadata:
+      labels:
+        app: mroh-rfs-backend
+    spec:
+      containers:
+      - name: ${{ images }}
+        ports:
+        - containerPort: 8085
+        envFrom:
+        - configMapRef:
+            name: my-config-map
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+        requests:
+          cpu: "250m"
+          memory: "256Mi"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mroh-rfs-backend-service
+spec:
+  selector:
+    app: mroh-rfs-backend
+  ports:
+  - protocol: TCP
+    port: 8085
+    targetPort: 8085
+  type: LoadBalancer

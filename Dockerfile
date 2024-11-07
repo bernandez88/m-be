@@ -11,8 +11,6 @@ COPY src src
 RUN gradle wrapper --gradle-version 8.3
 RUN ./gradlew clean build
 
-
-
-EXPOSE 8080
+EXPOSE 8085 8086 1433 6379 6380 6381 9093 5671 5672 9354 9355
 
 CMD ["java", "-jar", "build/libs/modular-monolith-0.0.1-SNAPSHOT.jar"]
