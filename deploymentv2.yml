@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mroh-rfs-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mroh-rfs-backend
+  template:
+    metadata:
+      labels:
+        app: mroh-rfs-backend
+    spec:
+      containers:
+      - name: mroh-rfs-backend
+        # image: mrohcontainerregistrybh.azurecr.io/mroh-rfs-backend:latest
+        image: bernandez88/mrohbackend:latest
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        env:
+        - name: DATABASE_HOST
+          value: postgres
+        - name: DATABASE_PORT
+          value: "30002"
+        - name: DATABASE_USER
+          value: postgres
+        - name: DATABASE_PASSWORD
+          value: password
+        - name: DATABASE_NAME
+          value: modular_monolith_db
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modular-monolith-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: modular-monolith-db
+  template:
+    metadata:
+      labels:
+        app: modular-monolith-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:14-alpine
+        env:
+        - name: POSTGRES_DB
+          value: modular_monolith_db
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: pgdata
+        persistentVolumeClaim: 
+          claimName: modular-monolith-db-pvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: modular-monolith-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: modular-monolith-db
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+    nodePort: 30002
+  type: NodePort
